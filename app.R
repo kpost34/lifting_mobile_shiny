@@ -12,6 +12,7 @@ pacman::p_load(shiny, shinyMobile, here, tidyverse)
 source(here("modules", "00_login.R"))
 source(here("modules", "01_main.R"))
 source(here("modules", "02_workout.R"))
+source(here("modules", "03_meso.R"))
 
 
 # App===============================================================================================
@@ -21,7 +22,7 @@ liftingApp <- function() {
     title="Lifting Mobile App",
     f7TabLayout(
       navbar=f7Navbar(
-        title="Tab layout title"
+        title="Lifting Mobile Shiny App"
       ),
       f7Tabs(id="tabs",
       #login
@@ -31,10 +32,10 @@ liftingApp <- function() {
       mainUI("tab1"),
       # 
       # #new workout
-      workoutUI("tab2")
+      workoutUI("tab2"),
       # 
       # #new meso
-      # mesoUI("prog")
+      mesoUI("tab3")
       )
     )
   )
@@ -43,7 +44,7 @@ liftingApp <- function() {
   server <- function(input, output, session) {
 
     #login
-    tab0val <-loginServer("tab0")
+    tab0val <- loginServer("tab0")
     
     #main menu
     mainServer("tab1")
@@ -54,10 +55,10 @@ liftingApp <- function() {
     },ignoreInit=TRUE)
     
     # #new workout
-    workoutServer("lift")
-    # 
-    # #new meso
-    # mesoServer("prog")
+    workoutServer("tab2")
+
+    #new meso
+    mesoServer("tab3")
     
   }
   

@@ -19,7 +19,7 @@ workoutUI <- function(id) {
 
 # Server============================================================================================
 workoutServer <- function(id) {
-  moduleServer(id, function(input, ouptut, session) {
+  moduleServer(id, function(input, output, session) {
   
     
     
