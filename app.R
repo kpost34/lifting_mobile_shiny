@@ -15,6 +15,13 @@ source(here("modules", "02_workout.R"))
 source(here("modules", "03_meso.R"))
 
 
+#Currently working on
+#creating sheets to display exercise info for each workout--this needs to be dynamic by pulling in
+  #exercise number info to populate sets of these inputs; it should also be functionalized and
+  #muscle groups should be a vector
+
+
+
 # App===============================================================================================
 liftingApp <- function() {
   ## UI
