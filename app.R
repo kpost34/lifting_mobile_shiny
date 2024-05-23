@@ -9,6 +9,9 @@ pacman::p_load(shiny, shinyMobile, here, tidyverse)
 
 
 ## Source files
+source(here("obj_fn", "obj.R"))
+source(here("obj_fn", "01_fn.R"))
+
 source(here("modules", "00_login.R"))
 source(here("modules", "01_main.R"))
 source(here("modules", "02_workout.R"))
@@ -16,9 +19,9 @@ source(here("modules", "03_meso.R"))
 
 
 #Currently working on
-#creating sheets to display exercise info for each workout--this needs to be dynamic by pulling in
-  #exercise number info to populate sets of these inputs; it should also be functionalized and
-  #muscle groups should be a vector
+#functionalizing creation of sheets (want to create a wrapper for 3 per workout)
+#need to finish above then move to server fn and how it will work with buttons advancing sheets
+
 
 
 

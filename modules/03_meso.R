@@ -29,39 +29,38 @@ mesoUI <- function(id) {
     #          label="Enter exercise info",
     #          size="small"
     # )
-    f7Sheet(id=ns("sheet_wkout_1"),
-            label="Workout 1",
-            orientation="top",
-            swipeToClose=TRUE,
-            swipeToStep=TRUE,
-            swipeHandler=FALSE,
-            hiddenItems=tagList(
-              strong("Workout 1 Exercises"),
-              splitLayout(cellWidths=c("40%", "25%", "15%", "20%"),
-                f7Text(inputId=ns("txt_ex1"),
-                       label="Ex 1"),
-                f7Select(inputId=ns("sel_ex1"),
-                         label="Muscle group",
-                         choices=c("Chest", 
-                                   "Back", 
-                                   "Shoulders", 
-                                   "Triceps", 
-                                   "Biceps", 
-                                   "Quads", 
-                                   "Hamstrings", 
-                                   "Glutes", 
-                                   "Calves", 
-                                   "Abs"),
-                         selected=NULL),
-                f7Text(inputId=ns("txt_sets_ex1"),
-                       label="Sets"),
-                f7Text(inputId=ns("txt_reps_ex1"),
-                       label="Rep range")
-            ),
-            
-          )
-        )
-  )
+    
+    
+    create_workout_sheet(id=id, wkt_num=1, ex_group=1)
+    
+    # f7Sheet(id=ns("sheet_wkt1_1"),
+    #         label="Workout 1",
+    #         orientation="top",
+    #         swipeToClose=TRUE,
+    #         swipeToStep=TRUE,
+    #         swipeHandler=FALSE,
+    #         hiddenItems=tagList(
+    #           strong("Workout 1 Exercises 1-5"),
+    #             purrr::map(1:5, function(x) {
+    #               splitLayout(cellWidths=c("40%", "25%", "15%", "20%"),
+    #                 f7Text(inputId=ns(paste0("txt_ex", x)),
+    #                        label=paste("Ex", x),
+    #                        placeholder="Enter name of exercise"),
+    #                 f7Select(inputId=ns(paste0("sel_ex", x)),
+    #                          label="Muscle group",
+    #                          choices=ch_muscle,
+    #                          selected=NULL),
+    #                 f7Text(inputId=ns(paste0("txt_sets_ex", x)),
+    #                        label="Sets"),
+    #                 f7Text(inputId=ns(paste0("txt_reps_ex", x)),
+    #                        label="Rep range")
+    #                 )
+    #             }),
+    #           actionButton(inputId="btn_sheet_wkt1_1",
+    #                        label="More exercises")
+    #           )         
+    #       )
+    )
 }
 
 #there should be a table return (or a button that brings up a sheet with this info) that displays information about exercises/sets per muscle group,
@@ -99,7 +98,7 @@ mesoServer <- function(id) {
     #enter workout information
     observeEvent(input$btn_wkout_info_1, {
       updateF7Sheet(
-        id="sheet_wkout_1"
+        id="sheet_wkt1_1"
       )
     })
       
