@@ -19,8 +19,7 @@ source(here("modules", "03_meso.R"))
 
 
 #Currently working on
-#functionalizing creation of sheets (want to create a wrapper for 3 per workout)
-#need to finish above then move to server fn and how it will work with buttons advancing sheets
+#create then functionalize navigating sheets--moving back and forth and returning to create mesocycle page
 
 
 
