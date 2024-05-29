@@ -19,8 +19,8 @@ source(here("modules", "03_meso.R"))
 
 
 #Currently working on
-#create then functionalize navigating sheets--moving back and forth and returning to create mesocycle page
-
+#next: add server code for return to mesocycle buttons
+#color buttons on sheets
 
 
 

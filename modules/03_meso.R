@@ -73,26 +73,41 @@ mesoServer <- function(id) {
     )
     
     ## Navigate pages
-    wkt_num_vec <- rep(1:3, each=3)
-    ex_group_vec <- rep(1:3, 3)
-    
+    ### Advance to more exercises
+    wkt_num_vec <- rep(1:5, each=2)
+    ex_group_vec <- rep(1:2, 5)
+
     #advance sheets
-    purrr::map(1:2,
-      function(x) {
-        observeEvent(input[[paste0("btn_sheet_wkt1_1_more")]], {
-          updateF7Sheet(
-            id="sheet_wkt1_2"
-          )
+    purrr::map2(.x=wkt_num_vec, .y=ex_group_vec,
+      function(x, y) {
+        sheet_id <- paste0("sheet_wkt", x, "_", y)
+        sheet_id_new <- paste0("sheet_wkt", x, "_", y+1)
+
+        observeEvent(input[[paste("btn", sheet_id, "more", sep="_")]], {
+          updateF7Sheet(id=sheet_id_new)
         })
       }
     )
     
-    #advance from wkout1 2 to 3
-    observeEvent(input$btn_sheet_wkt1_2_more, {
-      updateF7Sheet(
-        id="sheet_wkt1_3"
-      )
-    })
+    
+    ### Return to previous page
+    wkt_num_vec <- rep(1:5, each=2)
+    ex_group_vec <- rep(2:3, 5)
+
+    #return to previous sheet
+    purrr::map2(.x=wkt_num_vec, .y=ex_group_vec,
+      function(x, y) {
+        sheet_id <- paste0("sheet_wkt", x, "_", y)
+        sheet_id_new <- paste0("sheet_wkt", x, "_", y-1)
+
+        observeEvent(input[[paste("btn", sheet_id, "previous", sep="_")]], {
+          updateF7Sheet(id=sheet_id_new)
+          updateF7Sheet(id=sheet_id)
+        })
+      }
+    )
+    
+    
     
     
   })
