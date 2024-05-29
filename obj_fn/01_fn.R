@@ -1,7 +1,7 @@
 # Functions (1) for Lifting Mobile Shiny App
 
 # Workout Sheet Functions===========================================================================
-#function to create a sheet with inputs for exercise information
+## Function to create a sheet with inputs for exercise information
 create_workout_sheet <- function(id, wkt_num, ex_group=1) {
   ns <- NS(id)
   
@@ -17,7 +17,7 @@ create_workout_sheet <- function(id, wkt_num, ex_group=1) {
     11:15
   }
   
-  ex_range <- paste(exs[1], exs[length(ex)], sep="-")
+  ex_range <- paste(exs[1], exs[length(exs)], sep="-")
   
   f7Sheet(id=ns(sheet_id),
           label=lab,
@@ -48,10 +48,14 @@ create_workout_sheet <- function(id, wkt_num, ex_group=1) {
               }),
             # tagList(
               if(ex_group==1) {
-                splitLayout(cellWidths=c("50%", "50%"),
-                  br(),
-                  f7Button(inputId=ns(paste("btn", sheet_id, "more", sep="_")),
-                           label="More exercises")
+                tagList(
+                  splitLayout(cellWidths=c("50%", "50%"),
+                    br(),
+                    f7Button(inputId=ns(paste("btn", sheet_id, "more", sep="_")),
+                             label="More exercises")
+                  ),
+                  f7Button(inputId=ns(paste("btn", sheet_id, "return", sep="_")),
+                           label="Return to create mesocycle")
                 )
               } else if(ex_group==2){
                 f7Segment(
@@ -62,29 +66,28 @@ create_workout_sheet <- function(id, wkt_num, ex_group=1) {
                 )
               } else if(ex_group==3){
                   splitLayout(cellWidths=c("50%", "50%"),
-                  f7Button(inputId=ns(paste("btn", sheet_id, "previous", sep="_")),
-                           label="Previous page"),
-                  br()
-                )
-              },
-              f7Button(inputId=ns(paste("btn", sheet_id, "return", "return", sep="_")),
-                         label="Return to create mesocycle")
-          # )
+                    f7Button(inputId=ns(paste("btn", sheet_id, "previous", sep="_")),
+                             label="Previous page"),
+                    br()
+                  )
+              }
           )
   )
 }
 
 
-#wrapper function to create multiple sheets at a time
+## Wrapper function to create multiple sheets at a time
 create_workout_sheet_set <- function(id){
-  wkt_num_vec <- rep(1:3, each=3)
-  ex_group_vec <- rep(1:3, 3)
+  wkt_num_vec <- rep(1:5, each=3)
+  ex_group_vec <- rep(1:3, 5)
   
   purrr::map2(.x=wkt_num_vec, .y=ex_group_vec, 
-              function(x, y) {
-                create_workout_sheet(id=id, wkt_num=x, ex_group=y)
-              })
+    function(x, y) {
+      create_workout_sheet(id=id, wkt_num=x, ex_group=y)
+    })
 }
+
+
 
                   
                   
