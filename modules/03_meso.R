@@ -6,7 +6,7 @@ mesoUI <- function(id) {
   ns <- NS(id)
   
   f7Tab(title="Create new mesocycle",
-        tabName="meso_tab",
+        tabName="tab3",
         icon=f7Icon("arrow_right_square_fill"),
         active=TRUE,
         
@@ -72,6 +72,7 @@ mesoServer <- function(id) {
       }
     )
     
+    
     ## Navigate pages
     ### Advance to more exercises
     wkt_num_vec <- rep(1:5, each=2)
@@ -106,7 +107,6 @@ mesoServer <- function(id) {
         })
       }
     )
-    
     
     
     

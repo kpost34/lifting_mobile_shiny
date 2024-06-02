@@ -26,6 +26,8 @@ create_workout_sheet <- function(id, wkt_num, ex_group=1) {
           swipeToStep=TRUE,
           swipeHandler=FALSE,
           hiddenItems=tagList(
+            #right-aligns text
+            p("Click below sheet to return to create mesocycle page", style="text-align: right"),
             strong(paste(lab, "Exercises", ex_range)),
               purrr::map(exs, function(x) {
                 splitLayout(cellWidths=c("40%", "25%", "15%", "10%", "10%"),
@@ -48,28 +50,29 @@ create_workout_sheet <- function(id, wkt_num, ex_group=1) {
               }),
             # tagList(
               if(ex_group==1) {
-                tagList(
-                  splitLayout(cellWidths=c("50%", "50%"),
-                    br(),
-                    f7Button(inputId=ns(paste("btn", sheet_id, "more", sep="_")),
-                             label="More exercises")
-                  ),
-                  f7Button(inputId=ns(paste("btn", sheet_id, "return", sep="_")),
-                           label="Return to create mesocycle")
+                # splitLayout(cellWidths=c("50%", "50%"),
+                f7Segment(
+                  f7Button(inputId=ns(paste("btn", sheet_id, "submit", sep="_")),
+                           label="Submit exercise info", color="green"),
+                  f7Button(inputId=ns(paste("btn", sheet_id, "more", sep="_")),
+                           label="More exercises")
                 )
               } else if(ex_group==2){
                 f7Segment(
                   f7Button(inputId=ns(paste("btn", sheet_id, "previous", sep="_")),
                            label="Previous page"),
+                  f7Button(inputId=ns(paste("btn", sheet_id, "submit", sep="_")),
+                           label="Submit exercise info", color="green"),
                   f7Button(inputId=ns(paste("btn", sheet_id, "more", sep="_")),
                            label="More exercises")
                 )
               } else if(ex_group==3){
-                  splitLayout(cellWidths=c("50%", "50%"),
-                    f7Button(inputId=ns(paste("btn", sheet_id, "previous", sep="_")),
-                             label="Previous page"),
-                    br()
-                  )
+                f7Segment(
+                  f7Button(inputId=ns(paste("btn", sheet_id, "previous", sep="_")),
+                           label="Previous page"),
+                  f7Button(inputId=ns(paste("btn", sheet_id, "submit", sep="_")),
+                           label="Submit exercise info", color="green")
+                )
               }
           )
   )

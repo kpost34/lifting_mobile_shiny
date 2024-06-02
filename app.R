@@ -19,8 +19,7 @@ source(here("modules", "03_meso.R"))
 
 
 #Currently working on
-#next: add server code for return to mesocycle buttons
-#color buttons on sheets
+
 
 
 
