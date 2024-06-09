@@ -1,14 +1,15 @@
-# Mesocycle Module
+# Create New Mesocycle Module
 
 
 # UI================================================================================================
-mesoUI <- function(id) {
+newMesoUI <- function(id) {
   ns <- NS(id)
   
   f7Tab(title="Create new mesocycle",
         tabName="tab3",
         icon=f7Icon("arrow_right_square_fill"),
         active=TRUE,
+        hidden=TRUE,
         
     h4("We are on the start new mesocycle page."),
     f7Text(inputId=ns("txt_nm_meso"),
@@ -34,7 +35,7 @@ mesoUI <- function(id) {
 
 
 # Server============================================================================================
-mesoServer <- function(id) {
+newMesoServer <- function(id) {
   moduleServer(id, function(input, output, session) {
   
     ns <- session$ns
