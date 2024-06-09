@@ -9,3 +9,14 @@ ch_muscle <- c("Chest", "Back", "Shoulders", "Triceps", "Biceps", "Quads", "Hams
 
 
 
+# Demo information==================================================================================
+
+# df_keith22 <- tribble(
+#   ~meso, ~workout, ~exercise, ~muscle, ~set, ~weight, ~rep_goal, ~accomplish,
+
+
+
+
+
+
+
