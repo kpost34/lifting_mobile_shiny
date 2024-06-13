@@ -15,10 +15,13 @@ source(here("modules", "02_workout.R"))
 source(here("modules", "03_newMeso.R"))
 source(here("modules", "04_updateMeso.R"))
 
+#Completed:
+#1) Created dummy data sets and plan for how they interact
+#2) Updated create_workout_sheet() which includes bar type selector and updates sets to selector
 
 #Currently working on
-#1) develop the newMeso and updateMeso pages
-#2) build dummy data for keith22 that can be used to populate various inputs
+#1) build out pages that match the dummy data sets
+#2) develop the newMeso and updateMeso pages
 #3) develop the login page 
   #1. when "yes" is toggled for returning user then a password box should be created
   #2. min 5 chr message should be returned if insufficient
