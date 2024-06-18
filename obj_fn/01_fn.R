@@ -47,10 +47,10 @@ create_workout_sheet <- function(id, wkt_num, ex_group=1) {
                            choices=ch_sets,
                            selected=NULL),
                   f7Text(inputId=ns(paste0("txt_reps_low_ex", x)),
-                         label="Rep Range",
+                         label="Min rep",
                          placeholder="Min"),
                   f7Text(inputId=ns(paste0("txt_resp_hi_ex", x)),
-                         label="      ",
+                         label="Max rep",
                          placeholder="Max")
                   )
               }),
