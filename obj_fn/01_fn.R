@@ -10,11 +10,11 @@ create_workout_sheet <- function(id, wkt_num, ex_group=1) {
   sheet_id <- paste0("sheet_wkt", wkt_num, "_", ex_group)
   
   exs <- if(ex_group==1) {
-    1:5
+    1:4
   } else if(ex_group==2) {
-    6:10
+    5:8
   } else if(ex_group==3) {
-    11:15
+    9:12
   }
   
   ex_range <- paste(exs[1], exs[length(exs)], sep="-")
@@ -96,6 +96,18 @@ create_workout_sheet_set <- function(id){
     })
 }
 
+
+
+# Server Functions==================================================================================
+## Function to pull mesos from DF of meso summaries
+extract_mesos <- function(df) {
+  df %>%
+    pull(meso) %>%
+    unique() %>%
+    sort() -> vec_meso
+  
+  return(vec_meso)
+}
 
 
                   

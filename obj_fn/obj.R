@@ -15,11 +15,13 @@ ch_sets <- 1:5
 
 # Demo information==================================================================================
 ## 
+df_keith22 <- bind_rows(df_keith22_mesoD, df_keith22_mesoE)
 
 
 
-## Details of mesocycle (from create mesocycle page)
-df_mesoE_keith22 <- tribble(
+## Details of each mesocycle (from create mesocycle page)
+#meso E
+df_keith22_mesoE <- tribble(
   ~meso, ~workout, ~exercise, ~bar, ~muscle, ~sets, ~min_rep, ~max_rep,
   "Meso E", "A", "flat flyes", "db", "chest", 3, 8, 12,
   "Meso E", "A", "lateral raises", "db", "shoulders", 3, 8, 12,
@@ -37,7 +39,21 @@ df_mesoE_keith22 <- tribble(
   "Meso E", "B", "chest support rows", "bb", "back", 3, 8, 12,
   "Meso E", "B", "forward lunges", "db", "quads", 2, 8, 12,
   "Meso E", "B", "curls", "cb", "biceps", 2, 8, 12,
-  "Meso E", "B", "glute bridges", "db", "hamstrings", 2, 8, 12,
+  "Meso E", "B", "glute bridges", "db", "hamstrings", 2, 8, 12
+
+)
+
+#meso D
+df_keith22_mesoD <- tribble(
+  ~meso, ~workout, ~exercise, ~bar, ~muscle, ~sets, ~min_rep, ~max_rep,
+  "Meso D", "A", "flat flyes", "db", "chest", 3, 8, 12,
+  "Meso D", "A", "lateral raises", "db", "shoulders", 3, 8, 12,
+  "Meso D", "A", "st triceps extensions", "db", "triceps", 3, 8, 12,
+  "Meso D", "A", "st single-leg calf raises", "db", "calves", 2, 25, 30,
+  "Meso D", "B", "floor press", "db", "chest", 3, 8, 12,
+  "Meso D", "B", "se calf raises", "db", "calves", 2, 25, 30,
+  "Meso D", "B", "front raises", "cb", "shoulders", 3, 8, 12,
+  "Meso D", "B", "skull crushers", "db", "triceps", 2, 8, 12
 )
 
 # df_mesoE_keith22
@@ -46,7 +62,7 @@ df_mesoE_keith22 <- tribble(
 ## Details of recent workouts
 ## What's entered for a new workout
 ### Meso-workout-date [for start workout--choose mesocycle and workout and enter date]
-df_mesoE_wktA_keith22 <- tribble(
+df_keith22_mesoE_wktA <- tribble(
   ~meso, ~workout, ~date,
   "Meso E", "A", "6/11/24"
 )
@@ -54,8 +70,8 @@ df_mesoE_wktA_keith22 <- tribble(
 # df_mesoE_wktA_keith22
 
 #join this information with df_mesoE_keith22 by meso and workout (which pulls in date)
-df_mesoE_wktA_keith22_20241106 <- df_mesoE_keith22 %>%
-  inner_join(df_mesoE_wktA_keith22)  #left join keeps out B workout 
+df_keith22_mesoE_wktA_20241106 <- df_keith22_mesoE %>%
+  inner_join(df_keith22_mesoE_wktA)  #left join keeps out B workout 
 
 # df_mesoE_wktA_keith22_20241106
 
@@ -70,7 +86,7 @@ df_mesoE_wktA_keith22_20241106 <- df_mesoE_keith22 %>%
 
 
 ### What's stored in database
-df_mesoE_wkts_keith22 <- tribble(
+df_keith22_mesoE_wkts <- tribble(
   #meso  #workout  #exercise................................. #specific workout.............
   ~meso, ~workout, ~exercise, ~bar, ~muscle, ~sets, ~min_rep, ~max_rep, ~date,  ~weights,  ~accomplish,
   "Meso E", "A", "flat flyes", "db", "chest", 3,  8, 12, "6/11/24", "50-50-50", TRUE,
