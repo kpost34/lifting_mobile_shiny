@@ -14,12 +14,7 @@ ch_sets <- 1:5
 
 
 # Demo information==================================================================================
-## 
-df_keith22 <- bind_rows(df_keith22_mesoD, df_keith22_mesoE)
-
-
-
-## Details of each mesocycle (from create mesocycle page)
+## Details of each mesocycle (from create mesocycle page--user-entered)
 #meso E
 df_keith22_mesoE <- tribble(
   ~meso, ~workout, ~exercise, ~bar, ~muscle, ~sets, ~min_rep, ~max_rep,
@@ -56,7 +51,9 @@ df_keith22_mesoD <- tribble(
   "Meso D", "B", "skull crushers", "db", "triceps", 2, 8, 12
 )
 
-# df_mesoE_keith22
+
+## Combine mesos
+df_keith22 <- bind_rows(df_keith22_mesoD, df_keith22_mesoE)
 
 
 ## Details of recent workouts

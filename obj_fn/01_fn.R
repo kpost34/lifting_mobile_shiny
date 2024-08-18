@@ -110,6 +110,22 @@ extract_mesos <- function(df) {
 }
 
 
+## Function to pull workouts from DF of meso summaries
+extract_wkts <- function(df, sel_meso) {
+  if(is.null(sel_meso)) {
+    return(NULL)
+  } else{
+    df %>%
+      filter(meso==sel_meso) %>%
+      pull(workout) %>%
+      unique() %>%
+      sort() -> vec_wkt
+  
+    return(vec_wkt)
+  }
+}
+
+
                   
                   
 
