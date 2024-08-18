@@ -10,13 +10,9 @@ workoutUI <- function(id) {
         icon=f7Icon("arrowtriangle_right_fill"),
         active=TRUE,
         hidden=TRUE,
-    h4("We are on the start new workout page"),
-    f7Radio(inputId=ns("rad_meso"),
-            label="Choose your mesocycle",
-            choices=NULL),
-    f7Radio(inputId=ns("rad_wkt"),
-            label="Choose your workout",
-            choices=NULL)
+    h3("Start New Workout"),
+    uiOutput(outputId=ns("ui_rad_meso")),
+    uiOutput(outputId=ns("ui_rad_wkt"))
   )
 }
 
@@ -34,31 +30,31 @@ workoutServer <- function(id) {
     ns <- session$ns
     
     ## Update inputs
-    #mesocycle
+    ### Mesocycle
     observe({
-      updateF7Radio(session=session,
-                    inputId="rad_meso",
-                    choices=c("A", "B", "C", "D", "E"),
-                    selected=NULL)
+      print("Updating mesocycle choices")
+      output$ui_rad_meso <- renderUI({
+        f7Radio(inputId=ns("rad_meso"),
+                label="Choose your mesocycle",
+                choices=extract_mesos(df_keith22))
+      })
     })
     
-    #workout
-    observeEvent(input$rad_meso, {
-      #conditional extraction
-      ch_wkt <- switch(input$rad_meso,
-        "A" = 1,
-        "B" = 1:2,
-        "C" = 1:3,
-        "D" = c("A", "B"),
-        "E" = c("A", "B"))
-      
-      
-      updateF7Radio(session=session,
-                    inputId="rad_wkt",
-                    choices=ch_wkt)
-    }, ignoreInit=TRUE)
     
-  })
+    ### Workouts
+    observeEvent(input$rad_meso, {
+      
+      output$ui_rad_wkt <- renderUI({
+      
+        print(paste("Rendering workout choices for mesocycle:", input$rad_meso))
+       
+        f7Radio(inputId=ns("rad_wkt"),
+                label="Select your workout",
+                choices=extract_wkts(df_keith22, input$rad_meso))
+      })
+    })
+ })
+    
 }
 
 
