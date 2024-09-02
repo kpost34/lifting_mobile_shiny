@@ -12,7 +12,28 @@ workoutUI <- function(id) {
         hidden=TRUE,
     h3("Start New Workout"),
     uiOutput(outputId=ns("ui_rad_meso")),
-    uiOutput(outputId=ns("ui_rad_wkt"))
+    uiOutput(outputId=ns("ui_rad_wkt")),
+    uiOutput(outputId=ns("ui_date_wkt")),
+    
+    #confirmation button
+    uiOutput(outputId=ns("ui_btn_wkt")),
+    
+    #sheet
+    f7Sheet(id=ns("sheet_wkt_start"),
+                label="Enter workout information",
+                orientation="top",
+                swipeToClose=TRUE,
+                swipeToStep=TRUE,
+                backdrop=FALSE,
+                swipeHandler=FALSE,
+                hiddenItems=tagList(
+                  p("Enter workout information"),
+                  strong("testing"),
+                  DTOutput(ns("dt_start_wkt")),
+                  f7Button(inputId=ns("btn_submit_wkt"),
+                           label="Submit workout information")
+                )
+    )
   )
 }
 
@@ -29,10 +50,10 @@ workoutServer <- function(id) {
   
     ns <- session$ns
     
-    ## Update inputs
+    ## Create inputs
     ### Mesocycle
     observe({
-      print("Updating mesocycle choices")
+      # print("Updating mesocycle choices")
       output$ui_rad_meso <- renderUI({
         f7Radio(inputId=ns("rad_meso"),
                 label="Choose your mesocycle",
@@ -41,20 +62,75 @@ workoutServer <- function(id) {
     })
     
     
-    ### Workouts
+    ### Workout
+    #### Choose one
     observeEvent(input$rad_meso, {
       
       output$ui_rad_wkt <- renderUI({
       
-        print(paste("Rendering workout choices for mesocycle:", input$rad_meso))
+        # print(paste("Rendering workout choices for mesocycle:", input$rad_meso))
        
         f7Radio(inputId=ns("rad_wkt"),
                 label="Select your workout",
                 choices=extract_wkts(df_keith22, input$rad_meso))
       })
     })
- })
     
+    
+    #### Enter date
+    observeEvent(input$rad_wkt, {
+      
+      output$ui_date_wkt <- renderUI({
+        
+        f7DatePicker(inputId=ns("date_wkt"),
+                     label="Select workout date")
+      })
+      
+      
+    })
+    
+    
+    #### Confirmation button
+    observeEvent(input$date_wkt, {
+      
+      output$ui_btn_wkt <- renderUI({
+        f7Button(inputId=ns("btn_wkt"),
+                 label="Confirm selection")
+        })
+        
+      })
+      
+    
+    
+    
+    ## Start workout
+    ### Pull information
+    df_start_wkt <- reactive({
+      df_keith22 %>%
+        filter(meso==input$rad_meso, 
+              workout==input$rad_wkt) %>%
+        select(!c(meso, workout)) %>%
+        mutate(rep_range=paste(min_rep, max_rep, sep="-"), .keep="unused") %>%
+        mutate(`lb (separate by '-')`=NA,
+               `accomplish (y/n)`=NA)
+    })
+    
+    output$dt_start_wkt <- renderDT(
+      datatable(
+        df_start_wkt(),
+        editable=TRUE
+        ) %>%
+          formatStyle(columns=1: ncol(df_start_wkt()),
+                      backgroundColor="white")
+    )
+    
+    
+    ### Open sheet
+    observeEvent(input$btn_wkt, {
+      print("Clicked confirmation button")
+      updateF7Sheet(id="sheet_wkt_start")
+    })
+  })
 }
 
 
