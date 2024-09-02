@@ -6,8 +6,8 @@ pacman::p_load(shiny, shinyMobile, here, tidyverse)
 
 
 ## Source files
-source(here("obj_fn", "obj.R"))
-source(here("obj_fn", "01_fn.R"))
+source(here("obj_fn", "0_obj.R"))
+source(here("obj_fn", "0_fn.R"))
 
 source(here("modules", "00_login.R"))
 source(here("modules", "01_main.R"))
@@ -15,26 +15,31 @@ source(here("modules", "02_workout.R"))
 source(here("modules", "03_newMeso.R"))
 source(here("modules", "04_updateMeso.R"))
 
-#Completed:
-#1) Created dummy data sets and plan for how they interact
-#2) Updated create_workout_sheet() which includes bar type selector and updates sets to selector
-
 #Currently working on
-#1) build out pages that match the dummy data sets
+#1) new workout page
+  #build out sheet that match the dummy data sets
 #2) develop the newMeso and updateMeso pages
+  #for updateMeso, considere editable DT that can be saved
 #3) develop the login page 
   #1. when "yes" is toggled for returning user then a password box should be created
   #2. min 5 chr message should be returned if insufficient
   #3. toast notification comes up if successfully created username or entered password
+#4) need to add 'back'/'return' buttons to go back to main menu
 
 
+# Working on....
+#1) Got editable table into new workout sheet but need to have it display better: colheaders are
+  #tough to see, need to remove row names, and unsure if want the whole thing to be editable...maybe
+  #a static table with the info and a separate table next to it that's editable (with two cols)
 
 
+ 
 # App===============================================================================================
 liftingApp <- function() {
   ## UI
   ui <- f7Page(
     title="Lifting Mobile App",
+  
     f7TabLayout(
       navbar=f7Navbar(
         title="Lifting Mobile Shiny App"
