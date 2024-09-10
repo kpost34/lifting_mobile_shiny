@@ -2,7 +2,7 @@
 
 # Packages, Conflicts, and Sourcing=================================================================
 ## Load packages
-pacman::p_load(shiny, shinyMobile, here, tidyverse)
+pacman::p_load(shiny, shinyMobile, here, tidyverse, DT)
 
 
 ## Source files
@@ -28,9 +28,7 @@ source(here("modules", "04_updateMeso.R"))
 
 
 # Working on....
-#1) Got editable table into new workout sheet but need to have it display better: colheaders are
-  #tough to see, need to remove row names, and unsure if want the whole thing to be editable...maybe
-  #a static table with the info and a separate table next to it that's editable (with two cols)
+#1) Grabbing data from editable workout table
 
 
  
@@ -38,6 +36,36 @@ source(here("modules", "04_updateMeso.R"))
 liftingApp <- function() {
   ## UI
   ui <- f7Page(
+    tags$style(HTML("
+        /* Ensure the DataTables search bar has white text */
+        .dataTables_wrapper .dataTables_filter input {
+          color: #ffffff; /* White text color for the search box */
+          background-color: #333333; /* Dark background for the search box */
+          border: 1px solid #444444; /* Optional: Border color for the search box */
+        }
+    
+        .dataTables_wrapper .dataTables_filter label {
+          color: #ffffff; /* White text color for the 'Search:' label */
+        }
+    
+        /* Ensure the DataTables headers have white text */
+        table.dataTable thead th {
+          color: #ffffff; /* White text color for headers */
+          background-color: #333333; /* Dark background color for headers */
+        }
+    
+        /* Optional: Ensure the DataTables pagination buttons also have white text */
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+          color: #ffffff; /* White text color for pagination buttons */
+          background-color: #333333; /* Dark background color for pagination buttons */
+          border: 1px solid #444444; /* Optional: Border color for pagination buttons */
+        }
+    
+        .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+          background-color: #555555; /* Darker background on hover */
+          color: #ffffff; /* White text color on hover */
+        }
+      ")),
     title="Lifting Mobile App",
   
     f7TabLayout(
