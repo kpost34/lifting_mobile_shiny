@@ -33,7 +33,9 @@ workoutUI <- function(id) {
                   f7Button(inputId=ns("btn_submit_wkt"),
                            label="Submit workout information")
                 )
-    )
+    ),
+    
+    verbatimTextOutput(ns("result"))
   )
 }
 
@@ -102,10 +104,9 @@ workoutServer <- function(id) {
       
     
     
-    
     ## Start workout
-    ### Pull information
-    df_start_wkt <- reactive({
+    ### Create reactive of workout info
+    df_new_wkt <- reactive({
       df_keith22 %>%
         filter(meso==input$rad_meso, 
               workout==input$rad_wkt) %>%
@@ -115,10 +116,22 @@ workoutServer <- function(id) {
                `accomplish (y/n)`=NA)
     })
     
+    
+    ### Create empty RV then populate it with above reactive
+    df_new_wkt_data <- reactiveVal()
+    
+    observe({
+      df_new_wkt_data(df_new_wkt())
+    })
+    
+    
+    ### Render DT
     output$dt_start_wkt <- renderDT(
       datatable(
-        df_start_wkt(),
-        editable=TRUE
+        df_new_wkt_data(),
+        rownames=FALSE,
+        editable=TRUE,
+        options=list(dom="t")
         ) %>%
           formatStyle(columns=1: ncol(df_start_wkt()),
                       backgroundColor="white")
@@ -130,6 +143,29 @@ workoutServer <- function(id) {
       print("Clicked confirmation button")
       updateF7Sheet(id="sheet_wkt_start")
     })
+    
+    
+    ### Capture changes in DT
+    observeEvent(input$dt_start_wkt_cell_edit, {
+      info <- input$dt_start_wkt_cell_edit
+      str(info)
+    })
+    
+    
+    ### Update the reactive data with the edited value
+    df_data <- df_new_wkt() 
+    data_df[info$row, info$col] <- info$value
+    df_new_wkt(df_data)
+    
+    ### Submit information
+    observeEvent(input$btn_submit_wkt, {
+      print("Clicked submit workout info button")
+      output$result <- renderPrint({
+        df_new_wkt()
+      })
+    })
+    
+    
   })
 }
 
